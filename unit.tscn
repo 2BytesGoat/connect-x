@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://4b4i6irrbpm1"]
+
+[ext_resource type="Texture2D" uid="uid://cjpmk78xn2l1n" path="res://assets/0x72_DungeonTilesetII_v1.6.png" id="1_ky7tk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ju75h"]
+atlas = ExtResource("1_ky7tk")
+region = Rect2(128, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axxx6"]
+atlas = ExtResource("1_ky7tk")
+region = Rect2(144, 32, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_17k7q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ju75h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axxx6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Unit" type="Node2D" groups=["Unit"]]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -10)
+sprite_frames = SubResource("SpriteFrames_17k7q")
+autoplay = "default"
+frame_progress = 0.179145

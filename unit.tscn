@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://4b4i6irrbpm1"]
+[gd_scene load_steps=6 format=3 uid="uid://4b4i6irrbpm1"]
 
 [ext_resource type="Texture2D" uid="uid://cjpmk78xn2l1n" path="res://assets/0x72_DungeonTilesetII_v1.6.png" id="1_ky7tk"]
+[ext_resource type="Script" path="res://Unit.gd" id="1_qd3y8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ju75h"]
 atlas = ExtResource("1_ky7tk")
@@ -25,6 +26,7 @@ animations = [{
 }]
 
 [node name="Unit" type="Node2D" groups=["Unit"]]
+script = ExtResource("1_qd3y8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -10)

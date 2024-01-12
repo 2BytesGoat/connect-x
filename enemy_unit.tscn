@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://4b4i6irrbpm1"]
+[gd_scene load_steps=7 format=3 uid="uid://vnnc2x8b8urc"]
 
-[ext_resource type="Texture2D" uid="uid://cjpmk78xn2l1n" path="res://assets/0x72_DungeonTilesetII_v1.6.png" id="1_ky7tk"]
-[ext_resource type="Script" path="res://Unit.gd" id="1_qd3y8"]
+[ext_resource type="Script" path="res://Unit.gd" id="1_qjmk8"]
+[ext_resource type="Texture2D" uid="uid://cjpmk78xn2l1n" path="res://assets/0x72_DungeonTilesetII_v1.6.png" id="2_4yagp"]
 
 [sub_resource type="Animation" id="Animation_4argw"]
 resource_name = "Celebrate"
@@ -95,12 +95,13 @@ _data = {
 "RESET": SubResource("Animation_ra5pv")
 }
 
-[node name="Unit" type="Node2D" groups=["Unit"]]
-script = ExtResource("1_qd3y8")
+[node name="EnemyUnit" type="Node2D" groups=["Enemy"]]
+script = ExtResource("1_qjmk8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
 position = Vector2(0, -6)
-texture = ExtResource("1_ky7tk")
+texture = ExtResource("2_4yagp")
 hframes = 9
 region_enabled = true
 region_rect = Rect2(128, 40, 144, 24)

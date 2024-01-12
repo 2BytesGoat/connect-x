@@ -1,15 +1,11 @@
 extends Node2D
 
-@onready var sprite = $AnimatedSprite2D
-var is_enemy = false : set = _set_is_enemy, get = _get_is_enemy
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-func _set_is_enemy(value):
-	is_enemy = value
-	
-	if value == true:
-		remove_from_group("Unit")
-		add_to_group("Enemy")
-		sprite.self_modulate = Color.CRIMSON
 
-func _get_is_enemy():
-	return is_enemy
+func celebrate():
+	animation_player.play("Celebrate")
+
+func _on_Celebration_ended():
+	queue_free()

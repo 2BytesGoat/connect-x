@@ -23,32 +23,55 @@ const diag2_axis = {
 	"SW": Vector2i(-1, 1)
 }
 
+var cell_contents = {}
+
 signal connection_created(is_enemy)
 
-func instantiate_unit_at_tile_cell(unit_scene, tile_cell, is_enemy):
+
+func _ready():
+	_on_viewport_size_changed()
+	get_tree().root.connect("size_changed", _on_viewport_size_changed)
+
+func _on_viewport_size_changed():
+	var screen_size = get_viewport().size
+	var map_size = get_used_rect().size * tile_set.tile_size
+	position = (screen_size - map_size) / 2
+
+func instantiate_unit_at_tile_cell(unit_scene, tile_cell):
 	var unit = unit_scene.instantiate()
 	add_child(unit)
+	set_cell(unit_layer, tile_cell, unit_scene_collection, Vector2i.ZERO)
 	
-	set_cell(unit_layer, tile_cell, unit_scene_collection, Vector2i.ZERO, unit.get_index())
-	unit.is_enemy = is_enemy
+	cell_contents[tile_cell] = {
+		"unit_id": unit.get_instance_id()
+	}
 	unit.position = map_to_local(tile_cell)
+	
+	var unit_type = unit.get_groups()[0]
+	check_for_connections(unit_type, tile_cell)
 
 func get_unit_at_tile_cell(tile_cell):
-	if tile_cell not in get_used_cells(unit_layer):
+	if tile_cell not in cell_contents:
 		return null
-	var child_index: int = get_cell_alternative_tile(unit_layer, tile_cell)
-	return get_child(child_index)
+	var unit_id = cell_contents[tile_cell]["unit_id"]
+	return instance_from_id(unit_id)
 
-func check_for_connections(unit_type, tile_cell, is_enemy):
+func check_for_connections(unit_type, tile_cell):
 	for axis in [x_axis, y_axis, diag1_axis, diag2_axis]:
 		var units = get_same_units_on_axis(unit_type, tile_cell, axis)
-		if len(units) >= 5:
-			emit_signal("connection_created", is_enemy)
+		if len(units) >= GameState.min_connection:
+			remove_units(units)
+			emit_signal("connection_created", unit_type)
 			return
 
+func remove_units(units):
+	for unit in units:
+		remove_unit(unit)
+
 func remove_unit(unit):
+	cell_contents.erase(unit["unit_cell"])
 	erase_cell(unit_layer, unit["unit_cell"])
-	remove_child(unit["unit_instance"])
+	unit["unit_instance"].celebrate()
 
 func get_same_units_on_axis(unit_type, unit_cell, axis):
 	var same_units = [{
@@ -64,7 +87,7 @@ func get_same_units_on_axis(unit_type, unit_cell, axis):
 
 func get_same_uits_in_direction(unit_type, unit_cell, direction):
 	var unit_instance = get_unit_at_tile_cell(unit_cell)
-	if unit_instance == null:
+	if unit_instance == null or not unit_instance.is_in_group(unit_type):
 		return []
 	
 	var same_units = [{

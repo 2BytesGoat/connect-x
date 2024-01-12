@@ -130,6 +130,72 @@ script = ExtResource("3_wb0iy")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="Player2HP" type="Panel" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -94.0
+offset_right = 95.0
+offset_bottom = 67.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Player2HP"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -44.0
+offset_right = 44.0
+offset_bottom = 50.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Player2HP/VBoxContainer"]
+layout_mode = 2
+text = "Player 2 HP"
+
+[node name="Player2HPLabel" type="Label" parent="CanvasLayer/Player2HP/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player1HP" type="Panel" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -94.5
+offset_top = -67.0
+offset_right = 94.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Player1HP"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -44.0
+offset_right = 44.0
+offset_bottom = 50.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Player1HP/VBoxContainer"]
+layout_mode = 2
+text = "Player 1 HP"
+
+[node name="Player1HPLabel" type="Label" parent="CanvasLayer/Player1HP/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="EndScreen" type="Panel" parent="CanvasLayer"]
 unique_name_in_owner = true
 visible = false
